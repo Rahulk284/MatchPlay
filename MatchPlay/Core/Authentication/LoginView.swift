@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//STILL NEED TO ADD GOOGLE AND APPLE LOG IN OPTION (may not do apple if we cant figure it out)
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
