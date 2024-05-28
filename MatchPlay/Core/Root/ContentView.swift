@@ -10,10 +10,6 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack(spacing: 10.0) {
-            Image("Tennis-Player")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(.all)
             Text("MatchPlay")
                 .font(.largeTitle)
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
