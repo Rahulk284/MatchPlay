@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
-        VStack(spacing: 10.0) {
-            Text("MatchPlay")
-                .font(.largeTitle)
-                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+        Group {
+            if viewModel.userSession != nil {
+                ProfileView()
+            }
+            else {
+                LoginView()
+            }
         }
-        .padding()
     }
 }
 
