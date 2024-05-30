@@ -13,6 +13,8 @@ struct RegistrationView: View {
     @State private var firstName = ""
     @State private var lastName = ""
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
         ZStack {
             Color("BgColor")
@@ -46,7 +48,12 @@ struct RegistrationView: View {
                 .padding(.top, 12)
                 
                 Button {
-                    print("Signing user up...")
+                    Task {
+                        try await viewModel.createUser(withEmail: email,
+                                                       password: password,
+                                                       firstName: firstName,
+                                                       lastName: lastName)
+                    }
                 } label: {
                     HStack {
                         Text("Sign Up")
@@ -56,6 +63,8 @@ struct RegistrationView: View {
                     .frame(width: UIScreen.main.bounds.width - 79, height: 48)
                 }
                 .background(Color(.systemGreen))
+                .disabled(!formIsValid)
+                .opacity(formIsValid ? 1.0 : 0.5)
                 .cornerRadius(32)
                 
 //                Spacer()
@@ -77,6 +86,17 @@ struct RegistrationView: View {
             }
             .padding(.bottom, 100)
         }
+    }
+}
+
+extension RegistrationView: AuthenticationFormProtocol {
+    var formIsValid: Bool {
+        return !email.isEmpty
+        && email.contains("@")
+        && !password.isEmpty
+        && password.count > 5
+        && !firstName.isEmpty
+        && !lastName.isEmpty
     }
 }
 
