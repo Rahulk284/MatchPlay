@@ -46,7 +46,6 @@ struct LoginView: View {
                     .background(Color(.systemGreen))
                     .cornerRadius(32)
                     
-                    
                     NavigationLink {
                         RegistrationView()
                             .navigationBarBackButtonHidden(true)
