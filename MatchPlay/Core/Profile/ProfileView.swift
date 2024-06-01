@@ -9,6 +9,8 @@ import SwiftUI
 //THIS IS A TEMPORARY DESIGN
 struct ProfileView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+//    @State private var email = ""
+//    @State private var password = ""
     var body: some View {
         if let user = viewModel.currentUser {
             List {
@@ -62,7 +64,14 @@ struct ProfileView: View {
                     }
                     
                     Button  {
-                        print("Delete Account")
+                        Task {
+                            do {
+                                try await viewModel.deleteAccount()
+                            } catch {
+                                print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
+                            }
+                            
+                        }
                     } label: {
                         SettingsRowView(imageName: "xmark.circle.fill", title: "Delete Account", tintColor:.red)
                     }
